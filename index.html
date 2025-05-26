@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analemma Tower</title>
+  <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+@font-face {
+  font-family: 'NCSRadhiumz';
+  src: url('./fonts/NCSRadhiumz.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+  @font-face {
+  font-family: 'NanumSquareNeoBold';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot);
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.eot?#iefix) format("embedded-opentype"),
+       url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.woff) format("woff"),
+       url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-cBd.ttf) format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'NanumSquareNeoExtraBold';
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot);
+    src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.eot?#iefix) format("embedded-opentype"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.woff) format("woff"), url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-dEb.ttf) format("truetype");
+
+}
+
+@font-face {
+  font-family: 'NanumSquareNeoRegular';
+  src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot');
+  src: url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix') format('embedded-opentype'),
+       url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff') format('woff'),
+       url('https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf') format('truetype');
+  font-style: normal;
+}
+
+
+ 
+.trail {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(8px);
+  animation: swirlFade 1s ease-out forwards;
+  z-index: 10000;
+}
+
+@keyframes swirlFade {
+  0% {
+    opacity: 0.8;
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(5) rotate(720deg);
+  }
+}
+
+  body {
+    cursor: none; /* 기본 커서 숨기기 */
+  }
+
+html {
+  scroll-behavior: smooth;
+}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000000;
+      font-family: Arial, sans-serif;
+      color: black;
+    }
+
+    /* Layout container */
+    .container {
+      padding-left: 300px;
+      padding-right: 300px;
+    }
+
+    /* 반응형 */
+    @media (max-width: 1024px) {
+      .container {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+    }
+
+
+    h3 {
+  font-family: 'NCSRadhiumz', sans-serif; /* 위에서 쓴 커스텀 폰트 */
+   background: linear-gradient(90deg, #4778FF, #B668C6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+ h2 {
+  font-family: 'NanumSquareNeoExtraBold', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+p{font-family: 'NanumSquareNeoBold'}
+
+body {
+  font-family: 'NanumSquareNeoBold', sans-serif;
+}
+   
+
+
+    /* Navbar */
+   .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 300px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Smooch Sans', sans-serif;
+}
+  .nav-links a {
+  text-decoration: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a.active {
+  background-color: #99BBFF;
+  color: #000;
+}
+
+
+
+
+    /* Header Text */
+    .main-content {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    /* Image */
+    .image-wrapper {
+      margin-top: 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .image-wrapper img {
+      width: 100%;
+      max-width: 1000px;
+      height: auto;
+      display: block;
+    }
+
+.container {
+  background: linear-gradient(to bottom, #637DAB 0%, #000000 100%);
+  transition: background-color 0.6s ease;
+}
+/* 글자 기본 색 설정 */
+.analemma-title span {
+  color: black;
+  transition: color 0.5s ease;
+}
+
+
+.analemma-hover-area:hover .analemma-title span {
+  color: #fff; text-shadow: 0 0 5px #fff, 0 0 100px #d4ff4d,
+}
+
+.analemma-hover-area {
+  position: relative;
+  width: 100%;
+  padding-top: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  margin-bottom: 150px;
+}
+
+
+.analemma-title {
+  font-family: 'NCSRadhiumz', sans-serif;
+  font-size: 80px;
+  font-weight: normal;
+  line-height: 1.1;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+
+  /* 🔥 초기 상태: 안 보이게 */
+  opacity: 0;
+  transform: translateY(30px);
+
+  /* 애니메이션 */
+  animation: fadeInUp 1.2s ease forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.image-wrapper {
+  position: relative;
+  margin-top: 40px;
+  display: inline-block;
+}
+
+.main-img {
+  width: 100%;
+  max-width: 1000px;
+  height: auto;
+  z-index: 1;
+  position: relative;
+}
+
+.float-img {  width: 180px !important;
+  position: absolute;
+  height: auto;
+  opacity: 0;
+  transition: all 0.5s ease;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* 이미지별 위치 (캡처 기반 좌표 근사치) */
+.img-1 {
+  top: -270px;
+  left: -140px;
+  transform: translateY(-40px) rotate(-10deg);
+}
+.img-2 {
+  top: 130px;
+  left: -220px;
+  transform: translateX(-60px) rotate(8deg);
+}
+.img-3 {
+  top: -100px;
+  right: -150px;
+  transform: translateX(60px) rotate(10deg);
+}
+
+/* hover 시 등장 */
+.analemma-hover-area:hover .float-img {
+  opacity: 1;
+  transform: translateX(0) translateY(0) rotate(0deg);
+}
+.main-video {
+   width: 750px;
+  height: 460px;
+  aspect-ratio: 16 / 9;
+  z-index: 1;
+  position: relative;
+  opacity: 0;
+  animation: fadeInUp 1.2s ease forwards;
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-section {
+  background:
+              url('./img/10.png') no-repeat center center fixed;background-size: cover;
+  color: #fff;
+  padding: 150px 20px;
+  font-family: 'NanumSquareNeoRegular', sans-serif;
+}
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.about-container h3 {
+  color: #5376BB;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 10px;
+}
+
+.about-container h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 40px;font-family: 'NanumSquareNeoBold',sans-serif;
+}
+
+.about-content { margin-top: 50px;
+  display: flex;
+  flex-direction: row; /* ← 여기! */
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap; /* 반응형 대응 */
+}
+.tower-img {
+  width: 45%;
+  max-width: 400px;
+  height: auto;
+}
+
+.about-desc {
+  width: 45%;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: left;
+}
+.about-desc mark {
+  background-color: #99BBFF;
+  color: black;
+  padding: 0 4px;
+  font-weight: 600;
+}
+.quote-box {
+  background: linear-gradient(120deg, #3D4F6E 10%, #2A4B8300 100%);
+  padding: 60px 0;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+margin: 250px 0;}
+
+.quote-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 60px;
+  padding: 0 198px;
+  flex-wrap: wrap; /* 반응형 */
+}
+
+.quote-left img {
+  width: 200px;
+  height: auto;
+}
+
+.quote-right {
+  flex: 1;
+  min-width: 300px;
+  font-size: 0.95rem;
+  line-height: 2;
+  color: #FFFFFF;
+  font-family: 'NanumSquareNeoRegular', sans-serif;
+}
+
+.quote-right .box-title {
+  background: #ccc;
+  color: #FFFFFF;
+  font-family: 'NanumSquareNeoRegular', sans-serif;
+  display: inline-block;
+  padding: 12px;
+  margin-bottom: 20px;
+}
+
+.quote-right mark {
+  background: #000;
+  color: #99BBFF;
+  font-weight: 700;
+  padding: 0 4px;
+}
+.architect {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.architect h3 {
+  color: #d4ff4d;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-35px) rotate(5deg); }
+
+    100% { transform: translateY(0); }
+  }
+
+  .architect img {
+    width: 220px;
+    height: auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+
+    animation: float 3s ease-in-out infinite;
+  }
+
+
+.architect .caption {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.architect blockquote {
+  font-style: italic;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+
+
+
+
+.scene {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-grid-5col {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto 1fr 1fr;
+  gap: 30px;
+  color: white;
+  align-items: center;
+  text-align: center;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.background-grid-5col img {
+  width: 260px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+
+.caption {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.desc {
+  font-size: 1rem;
+  line-height: 2;
+  text-align: left;
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: all 0.8s ease;
+}
+
+.slide-up.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+
+
+
+.tech-section {
+  position: relative;
+  background: #000;
+  color: white;
+  padding: 150px 80px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.tech-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: url('./img/19.png') no-repeat center center;
+  background-size: cover;
+  z-index: 1;
+}
+.white-title {
+  color: #868686 !important;
+  text-align: center;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: initial !important;
+
+  margin-bottom: 60px !important; }
+
+
+.tech-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.tech-label {
+  color: #d4ff4d;
+  font-family: 'NCSRadhiumz', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+
+
+.tech-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 120px;
+    margin: 0
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 800px;
+}
+
+.tech-col {
+  flex: 1 1 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left; 
+  text-align: left;  
+}
+
+.tech-col img {
+  width: 100%;
+  height: auto;
+  display: block;
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+.tech-col h4 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-family: 'NanumSquareNeoExtraBold';
+}
+
+.tech-col p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  font-family: 'NanumSquareNeoRegular';
+}
+
+.tech-col p mark {
+  background-color: #99BBFF;
+  color: black;
+ font-family: 'NanumSquareNeoBold';
+  padding: 2 4px;
+}
+.slide-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.slide-up.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+
+
+
+
+.diagram-section {
+  background: #000;
+  color: #fff;
+  padding: 150px 80px; 
+}
+
+.diagram-wrapper {
+  display: flex;
+  flex-direction: row;  
+  flex-wrap: nowrap;  
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1440px;
+  margin: 0 auto;
+  gap: 60px;
+}
+
+.diagram-title {
+  font-size: 2.5rem;
+  font-family: 'NCSRadhiumz', sans-serif;
+  color: #C0C0C0;
+  margin-bottom: 60px;
+}
+
+.diagram-left {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;  padding-left: 140px;
+}
+
+.diagram-item {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start;
+  margin-bottom: 330px;
+}
+
+.diagram-item img {
+  width: 120px;
+  height: auto;
+  object-fit: cover;transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.diagram-item img:hover {
+  transform: scale(1.5);
+  filter: brightness(1.5);
+  box-shadow: 0 0 50px rgba(100, 150, 255, 0.6); /* 💡 푸른빛 글로우 */
+  transition: all 0.3s ease;
+}
+
+
+.diagram-text h4 {
+  font-family: 'NanumSquareNeoExtraBold';
+  font-size: 0.9rem;
+  margin-bottom: 25px; color: #fff;
+}
+
+.diagram-text p {
+  font-family: 'NanumSquareNeoRegular';
+  font-size: 0.8rem;
+  line-height: 2; color: #fff;
+}
+
+.distance {
+  display: block;
+  margin-top: 10px;
+  font-size: 0.85rem;
+  color: #aaa;
+  border-top: 2px solid #444;
+  padding-top: 15px;width: 350px;
+}
+
+.diagram-right {
+  position: relative;
+  flex: 1;
+  max-width: 600px;
+  align-self: flex-start;
+  height: fit-content;
+}
+
+.diagram-right img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: top; /* ✅ 이미지 정렬 깨질 경우 */
+}
+
+.marker {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 10px #ffffff;
+  z-index: 2;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.marker.active {
+  animation: glowExplosion 1.5s ease-in-out infinite;
+  opacity: 1;
+}
+
+.popup-image {
+  position: absolute;
+  background: #000;
+  border-radius: 0;
+  display: none;
+  z-index: 3;
+  animation: fadeIn 0.5s ease;
+  width: 350px;
+  padding: 0;         /* ✅ */
+  margin: 0;          /* ✅ */
+  box-sizing: border-box; /* ✅ */
+}
+
+.popup-image video {
+  width: 100%;
+  height: auto;       /* ✅ 비율 유지 */
+  display: block;
+  border-radius: 0;
+  margin: 0;          /* ✅ */
+  padding: 0;         /* ✅ */
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  z-index: 4;
+}
+/* 애니메이션 */
+@keyframes glowExplosion {
+  0% {
+    transform: scale(0.8);
+    box-shadow: 0 0 10px 5px #ffffff;
+    opacity: 0.5;
+  }
+  30% {
+    transform: scale(1.5);
+    box-shadow: 0 0 60px 30px #ffffff;
+    opacity: 1;
+  }
+  60% {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px 15px #ffffff;
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 20px 10px #ffffff;
+    opacity: 0.7;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px); /* ❗ 가로 흔들림 없애고 세로만 */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+
+</head>
+<body>
+  <div class="container">
+    <header class="navbar">
+      <div class="logo">LOGO</div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#how">How</a>
+        <a href="#">Experience</a>
+        <a href="#">More</a>
+      </nav>
+      <div class="cta">Let’s Talk</div>
+    </header>
+
+    <div class="analemma-hover-area">
+  <h1 class="analemma-title">
+  <span>ANALEMMA</span><br>
+  <span>TOWER</span>
+</h1>
+ <div class="image-wrapper">
+     <iframe
+    class="main-video"
+    src="https://www.youtube.com/embed/GVwvdcJ8yHo"
+    title="Analemma Video"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+
+    <!-- 떠오르는 이미지들 -->
+    <img class="float-img img-1" src="./img/2.png" alt="img1" />
+    <img class="float-img img-2" src="./img/3.png" alt="img2" />
+    <img class="float-img img-3" src="./img/4.png" alt="img3" />
+  </div>
+</div>
+</div>
+<section class="about-section" id="about">
+  <div class="about-container">
+    <h3>01. ABOUT THIS TOWER</h3>
+    <h2>아날레마 타워는 무엇일까?</h2>
+
+    <div class="about-content">
+  <img src="./img/8.png" alt="tower" class="tower-img" />
+  <div class="about-desc">
+    NASA가 추진 중인 화성 계획과 더불어,<br />
+  <mark>뉴욕의 건축 회사 Clouds AO</mark>는 상상 속에서나<br />
+  가능할 것 같던 건축 아이디어를 내놓았습니다.
+
+  </div>
+</div>
+
+    <div class="quote-box">
+  <div class="quote-inner">
+    <div class="quote-left">
+
+      <img src="https://media.giphy.com/media/HccAjUI2wkH3Yd0kQn/giphy.gif?cid=ecf05e476ccfhu4a3hhbwsfna23uzdo7t6c6xcs1prhogzns&ep=v1_gifs_search&rid=giphy.gif&ct=g" alt="움짤" />
+    </div>
+    <div class="quote-right">
+    
+     <p>
+  이들은 <mark>‘소행성에 건물을 매단다’</mark> 는 전례 없는 방식으로 
+  <strong><mark>지구 궤도를 도는 초고층 건물 ‘아날레마 타워(Analemma Tower)’</mark></strong>를<br> 제안했는데요,
+  만약 이 건물이 실현된다면 전 세계에서 가장 높은 <br>건축물이자,
+  인류 최초의 <mark>‘하늘에 매달린 도시’</mark>가 되는 셈입니다.
+</p>
+    </div>
+  </div>
+</div>
+    <div class="architect">
+      <h3>OSTAP RUDAKEVYCH</h3>
+      <img src="./img/9.png" alt="오스타프 루다케비치" />
+      <p class="caption"><br><br>설계자 오스타프 루다케비치,
+      <blockquote>“건축이 인류를 재난에서 해방시킬 수 있다.”</blockquote></p>
+    </div>
+  </div>
+</section>
+
+<section class="scene" style="background-image: url('./img/11.png');">
+  <div class="background-grid-5col">
+    <div class="slide-up">Environmental<br>change</div>
+    <div class="slide-up">01</div>
+    <div class="slide-up"><img src="./img/14.png" /></div>
+    <div class="slide-up caption">환경 변화</div>
+    <div class="slide-up desc">
+      기후 위기와 오염을<br />
+      피해 하늘 위에<br />
+      안전한 공간 확보
+    </div>
+  </div>
+</section>
+
+<section class="scene" style="background-image: url('./img/12.png');">
+  <div class="background-grid-5col">
+    <div class="slide-up">Population Increase</div>
+    <div class="slide-up">02</div>
+    <div class="slide-up"><img src="./img/15.png"></div>
+    <div class="slide-up caption">인구 증가</div>
+    <div class="slide-up desc">
+      지상 한계를 넘는<br />
+      수직 거주로<br />
+      과밀 문제 해결
+    </div>
+  </div>
+</section>
+
+<section class="scene" style="background-image: url('./img/13.png');">
+  <div class="background-grid-5col">
+    <div class="slide-up">Disaster Response</div>
+    <div class="slide-up">03</div>
+    <div class="slide-up"><img src="./img/16.png"></div>
+    <div class="slide-up caption">재난 대응</div>
+    <div class="slide-up desc">
+      지진·홍수 등의<br />
+      재난으로부터 <br />
+      물리적 거리 확보
+    </div>
+  </div>
+</section>
+
+
+
+<section class="tech-section" id="how">
+  <div class="tech-bg-overlay"></div>
+  <div class="tech-wrapper">
+    <div class="tech-header slide-up">
+      <div class="about-container">
+
+    <h3>02. SYSTEM</h3>
+    <h2 style="line-height: 1.5; margin-bottom: 120px;">이게 정말 가능해? <br>아날레마 타워의 기술 원리</h2>
+   <h3 class="white-title">TECHNOLOGY</h3>
+    </div>
+
+    <div class="tech-row slide-up">
+      <div class="tech-col">
+        <img src="./img/20.png" alt="기술 시스템 구성 이미지1">
+      </div>
+      <div class="tech-col">
+        <h4 style="font-size: 15px;">1. 우주 기반 지지 시스템</h4>
+        <p style="font-size: 12px;line-height: 2;"><br>Analemma Tower는 지구에 고정된 기반이 아닌,<br><mark>지구 궤도를 도는 소행성에 고강도 케이블로 매달려 있는 구조</mark>이며,<br>이 소행성은 지구의 자전과 동기화된 궤도를 따라 움직입니다.</p>
+      </div>
+    </div>
+
+    <div class="tech-row slide-up">
+      <div class="tech-col">
+        <img src="./img/17.png" alt="기술 시스템 구성 이미지2">
+      </div>
+      <div class="tech-col">
+        <h4 style="font-size: 15px;">2. 타워의 궤도 이동과 위치 변화</h4>
+        <p style="font-size: 12px;line-height: 2;"><br>하루에 한 번 ‘8자 모양(Analemma)’의 궤적을 따라<br>지구 위를 이동합니다. 이로 인해 다양한 지역을 지나며,<br><mark>하늘을 순환하는 이동형 타워</mark>입니다.</p>
+      </div>
+    </div>
+
+    <div class="tech-row slide-up">
+      <div class="tech-col">
+        <img src="./img/18.png" alt="기술 시스템 구성 이미지3">
+      </div>
+      <div class="tech-col">
+        <h4 style="font-size: 15px;">3. 자급자족형 에너지 및 자원 시스템</h4>
+        <p style="font-size: 12px;line-height: 2;"><br>타워는 우주까지 닿지 않아 태양광을 직접 받아 전기를 만들고,<br>공기 & 수분을 회수해 모든 자원을 자체적으로 확보합니다.<br>이 덕분에 <mark>외부 자원 없이도 자급자족이 가능</mark>합니다.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<h3 class="white-title"><br><br><br>DIAGRAM</h3>
+<section class="diagram-section">
+  <div class="diagram-wrapper">
+    <!-- 좌측 설명 영역 -->
+    <div class="diagram-left">
+      <div class="diagram-item" onclick="showMarker(455, 90,'popup1')">
+        <img src="./img/19-1.png" alt="소행성">
+        <div class="diagram-text">
+          <h4>| 소행성</h4>
+          <p>타워 전체를 매달고 있는 중심 구조물로,<br>지구 궤도를 도는 소행성에 고정되어 있다.</p>
+          <span class="distance" data-number="50000">0</span>
+        </div>
+      </div>
+
+      <div class="diagram-item" onclick="showMarker(295, 550, 'popup2')">
+        <img src="./img/20-1.png" alt="지구 정지 궤도">
+        <div class="diagram-text">
+          <h4>| 지구 정지 궤도 (Clarke Belt)</h4>
+          <p>인공위성이 머무는 고도,<br>타워가 안정적으로 유지되기 위한 핵심 구간이다.</p>
+          <span class="distance" data-number="35786">0</span>
+        </div>
+      </div>
+
+      <div class="diagram-item" onclick="showMarker(295, 1000, 'popup3')">
+        <img src="./img/21.png" alt="국제우주정거장">
+        <div class="diagram-text">
+          <h4>| 국제우주정거장 (ISS)</h4>
+          <p>우주 탐사 및 연구가 이루어지는 구간,<br>타워의 외부 연구 모듈과 연계가 가능할 수 있다.</p>
+          <span class="distance" data-number="400">0</span>
+        </div>
+      </div>
+
+       <div class="diagram-item" onclick="showMarker(200, 1580, 'popup4')">
+        <img src="./img/22.png" alt="성층권">
+        <div class="diagram-text">
+          <h4>| 성층권</h4>
+          <p>공기가 희박하고, 자외선이 강한 구간.<br>에너지 수집 및 우주 관광 거점으로 활용 가능하다.</p>
+          <span class="distance" data-number="50">0</span>
+        </div>
+      </div>
+
+       <div class="diagram-item" onclick="showMarker(185, 1850, 'popup5')">
+        <img src="./img/23.png" alt="대류권 상부">
+        <div class="diagram-text">
+          <h4>| 대류권 상부</h4>
+          <p>일반 항공기보다 높은 고도,<br>가상선로, 폭격, 초음속 군단 등이 배치된 영역이다.</p>
+          <span class="distance" data-number="20">0</span>
+        </div>
+      </div>
+
+      <div class="diagram-item" onclick="showMarker(300, 2300, 'popup6')">
+        <img src="./img/24.png" alt="지상~저고도 구간">
+        <div class="diagram-text">
+          <h4>| 지상~저고도 구간</h4>
+          <p>삶터, 탐사, 주거, 농업, 운송, 교통 등이<br>이루어지는 실질적인 생활 공간인 지상이다.</p>
+          <span class="distance" data-number="10">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 우측 다이어그램 이미지 -->
+    <div class="diagram-right" id="diagramRight">
+      <img src="./img/25.png" alt="타워 다이어그램">
+        <div class="marker" style="left: 180px; top: 300px;" onclick="showPopup(this, 'popup1')"></div>
+
+
+ <div class="popup-image" id="popup1" style="padding-right: 40px;">
+  <button class="close-btn" onclick="closePopup(this)">✕</button>
+  <video src="./img1/1.mp4" controls autoplay muted loop></video>
+  </div>
+
+   <div class="popup-image" id="popup2">
+    <button class="close-btn" onclick="closePopup(this)">✕</button>
+    <video src="./img1/2.mp4" controls autoplay muted loop></video>
+  </div>
+
+<div class="popup-image" id="popup3">
+    <button class="close-btn" onclick="closePopup(this)">✕</button>
+    <video src="./img1/3.mp4" controls autoplay muted loop></video>
+  </div>
+
+  <div class="popup-image" id="popup4">
+    <button class="close-btn" onclick="closePopup(this)">✕</button>
+    <video src="./img1/4.mp4" controls autoplay muted loop></video>
+  </div>
+
+  <div class="popup-image" id="popup5">
+    <button class="close-btn" onclick="closePopup(this)">✕</button>
+    <video src="./img1/5.mp4" controls autoplay muted loop></video>
+  </div>
+
+    <div class="popup-image" id="popup6">
+    <button class="close-btn" onclick="closePopup(this)">✕</button>
+    <video src="./img1/6.mp4" controls autoplay muted loop></video>
+  </div>
+
+
+
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<script>
+  // scene용 observer
+  const sceneObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const children = entry.target.querySelectorAll('.slide-up');
+        children.forEach((el, index) => {
+          setTimeout(() => {
+            el.classList.add('active');
+          }, index * 150);
+        });
+      }
+    });
+  }, {
+    threshold: 0.3
+  });
+
+  document.querySelectorAll('.scene').forEach(section => {
+    sceneObserver.observe(section);
+  });
+
+  // tech-section용 observer (변수명 다르게!)
+ const techObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
+    }
+  });
+}, {
+  threshold: 0.3
+});
+
+document.querySelectorAll('.slide-up').forEach(section => {
+  techObserver.observe(section);
+});
+
+
+
+document.addEventListener('mousemove', e => {
+  const trail = document.createElement('div');
+  trail.className = 'trail';
+  trail.style.left = `${e.clientX}px`;
+  trail.style.top = `${e.clientY}px`;
+  trail.style.position = 'fixed';
+  trail.style.transform = 'translate(-50%, -50%)';
+  document.body.appendChild(trail);
+  setTimeout(() => trail.remove(), 1000);
+});
+
+ document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.forEach(l => l.classList.remove('active')); // 이전 active 제거
+        link.classList.add('active'); // 현재 클릭된 링크에 active 추가
+      });
+    });
+  });
+
+
+ const counters = document.querySelectorAll('.distance');
+
+  const countObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = +el.dataset.number;
+        let count = 0;
+        const speed = 20;
+
+        const updateCount = () => {
+          count += Math.ceil(target / speed);
+          if (count >= target) {
+            el.textContent = target.toLocaleString() + "km";
+          } else {
+            el.textContent = count.toLocaleString() + "km";
+            requestAnimationFrame(updateCount);
+          }
+        };
+
+        updateCount();
+        countObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 1 });
+
+  counters.forEach(counter => countObserver.observe(counter));
+
+
+function showMarker(x, y, popupId) {
+  const container = document.getElementById('diagramRight');
+
+  // 기존 marker 제거
+  const oldMarker = document.querySelector('.marker');
+  if (oldMarker) oldMarker.remove();
+
+  // 새 marker 생성
+  const marker = document.createElement('div');
+  marker.className = 'marker active';
+  marker.style.left = x + 'px';
+  marker.style.top = y + 'px';
+
+  // 클릭 시 팝업 표시
+  marker.onclick = () => showPopup(marker, popupId);
+
+  container.appendChild(marker);
+}
+
+
+function showPopup(marker, popupId) {
+  const allPopups = document.querySelectorAll('.popup-image');
+  allPopups.forEach(p => p.style.display = 'none');
+
+  const popup = document.getElementById(popupId);
+  const container = document.getElementById('diagramRight');
+
+  if (popup && container) {
+    const markerRect = marker.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    // 마커의 container 내 상대 좌표
+    const left = markerRect.left - containerRect.left;
+    const top = markerRect.top - containerRect.top;
+
+    // 팝업을 마커 '위에 중앙정렬' 시킴
+    popup.style.left = `${left - 120}px`; // 270px 팝업 기준, 가운데 정렬
+    popup.style.top = `${top - 180}px`;   // 마커보다 위로 180px 위치
+
+    popup.style.display = 'block';
+  }
+}
+function closePopup(btn) {
+  const popup = btn.closest('.popup-image');
+  if (popup) {
+    popup.style.display = 'none';
+  }
+}
+
+</script>
+
+</body>
+</html>
