@@ -42,9 +42,7 @@
 
 
  
-.trail {
-  position: fixed;
-  width: 20px;
+.trail { position: fixed;width: 20px;
   height: 20px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
@@ -66,7 +64,7 @@
 }
 
   body {
-    cursor: none; /* 기본 커서 숨기기 */
+    cursor: none;
   }
 
 html {
@@ -90,7 +88,7 @@ html {
       padding-right: 300px;
     }
 
-    /* 반응형 */
+
     @media (max-width: 1024px) {
       .container {
         padding-left: 40px;
@@ -100,7 +98,7 @@ html {
 
 
     h3 {
-  font-family: 'NCSRadhiumz', sans-serif; /* 위에서 쓴 커스텀 폰트 */
+  font-family: 'NCSRadhiumz', sans-serif; 
    background: linear-gradient(90deg, #4778FF, #B668C6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -123,7 +121,7 @@ body {
    
 
 
-    /* Navbar */
+  
    .navbar {
   position: fixed;
   top: 0;
@@ -158,13 +156,13 @@ body {
 
 
 
-    /* Header Text */
+
     .main-content {
       text-align: center;
       margin-top: 80px;
     }
 
-    /* Image */
+
     .image-wrapper {
       margin-top: 40px;
       display: flex;
@@ -182,7 +180,8 @@ body {
   background: linear-gradient(to bottom, #637DAB 0%, #000000 100%);
   transition: background-color 0.6s ease;
 }
-/* 글자 기본 색 설정 */
+
+    
 .analemma-title span {
   color: black;
   transition: color 0.5s ease;
@@ -213,11 +212,11 @@ body {
   z-index: 10;
   cursor: pointer;
 
-  /* 🔥 초기 상태: 안 보이게 */
+
   opacity: 0;
   transform: translateY(30px);
 
-  /* 애니메이션 */
+  
   animation: fadeInUp 1.2s ease forwards;
   animation-delay: 0.5s;
 }
@@ -253,7 +252,7 @@ body {
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-/* 이미지별 위치 (캡처 기반 좌표 근사치) */
+
 .img-1 {
   top: -270px;
   left: -140px;
@@ -270,7 +269,7 @@ body {
   transform: translateX(60px) rotate(10deg);
 }
 
-/* hover 시 등장 */
+
 .analemma-hover-area:hover .float-img {
   opacity: 1;
   transform: translateX(0) translateY(0) rotate(0deg);
@@ -327,11 +326,11 @@ body {
 
 .about-content { margin-top: 50px;
   display: flex;
-  flex-direction: row; /* ← 여기! */
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 80px;
-  flex-wrap: wrap; /* 반응형 대응 */
+  flex-wrap: wrap; 
 }
 .tower-img {
   width: 45%;
@@ -368,7 +367,7 @@ margin: 250px 0;}
   margin: 0 auto;
   gap: 60px;
   padding: 0 198px;
-  flex-wrap: wrap; /* 반응형 */
+  flex-wrap: wrap; 
 }
 
 .quote-left img {
@@ -698,7 +697,7 @@ margin: 250px 0;}
   display: block;
   width: 100%;
   height: auto;
-  vertical-align: top; /* ✅ 이미지 정렬 깨질 경우 */
+  vertical-align: top;
 }
 
 .marker {
@@ -728,18 +727,18 @@ margin: 250px 0;}
   z-index: 3;
   animation: fadeIn 0.5s ease;
   width: 350px;
-  padding: 0;         /* ✅ */
-  margin: 0;          /* ✅ */
-  box-sizing: border-box; /* ✅ */
+  padding: 0;        
+  margin: 0;         
+  box-sizing: border-box; 
 }
 
 .popup-image video {
   width: 100%;
-  height: auto;       /* ✅ 비율 유지 */
+  height: auto;      
   display: block;
   border-radius: 0;
-  margin: 0;          /* ✅ */
-  padding: 0;         /* ✅ */
+  margin: 0;         
+  padding: 0;       
 }
 
 .close-btn {
@@ -753,7 +752,8 @@ margin: 250px 0;}
   cursor: pointer;
   z-index: 4;
 }
-/* 애니메이션 */
+
+    
 @keyframes glowExplosion {
   0% {
     transform: scale(0.8);
@@ -779,7 +779,7 @@ margin: 250px 0;}
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px); /* ❗ 가로 흔들림 없애고 세로만 */
+    transform: translateY(10px); 
   }
   to {
     opacity: 1;
@@ -1082,7 +1082,7 @@ margin: 250px 0;}
     sceneObserver.observe(section);
   });
 
-  // tech-section용 observer (변수명 다르게!)
+  // tech-section용 observer 
  const techObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1182,13 +1182,13 @@ function showPopup(marker, popupId) {
     const markerRect = marker.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
 
-    // 마커의 container 내 상대 좌표
+
     const left = markerRect.left - containerRect.left;
     const top = markerRect.top - containerRect.top;
 
-    // 팝업을 마커 '위에 중앙정렬' 시킴
-    popup.style.left = `${left - 120}px`; // 270px 팝업 기준, 가운데 정렬
-    popup.style.top = `${top - 180}px`;   // 마커보다 위로 180px 위치
+  
+    popup.style.left = `${left - 120}px`;
+    popup.style.top = `${top - 180}px`;  
 
     popup.style.display = 'block';
   }
